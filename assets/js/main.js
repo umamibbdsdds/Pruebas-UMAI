@@ -173,12 +173,14 @@ function initMenuPage() {
   const vacio = document.getElementById('menu-empty');
   const input = document.getElementById('buscador');
   const selectPrecio = document.getElementById('filtro-precio');
+  const selectTipo = document.getElementById('filtro-tipo');
 
-  const estado = { categoria: 'todas', precio: 'todos', excluir: new Set(), texto: '' };
+  const estado = { categoria: 'todas', tipo: 'todos', precio: 'todos', excluir: new Set(), texto: '' };
   let timer = null;
 
   const pasaFiltros = it => {
     if (estado.categoria !== 'todas' && it.categoria !== estado.categoria) return false;
+    if (estado.tipo !== 'todos' && it.tipo !== estado.tipo) return false;
     if (estado.precio === 'bajo' && it.precio > 12) return false;
     if (estado.precio === 'medio' && (it.precio <= 12 || it.precio > 25)) return false;
     if (estado.precio === 'alto' && it.precio <= 25) return false;
@@ -188,7 +190,7 @@ function initMenuPage() {
       } else if (it.alergenos.includes(ex)) return false;
     }
     const q = estado.texto.trim().toLowerCase();
-    if (q && !(it.nombre + ' ' + it.descripcion).toLowerCase().includes(q)) return false;
+    if (q && !(it.nombre + ' ' + it.descripcion + ' ' + it.tipo + ' ' + (it.categoria || '')).toLowerCase().includes(q)) return false;
     return true;
   };
 
@@ -222,6 +224,11 @@ function initMenuPage() {
     });
   });
 
+  if (selectTipo) selectTipo.addEventListener('change', () => {
+    estado.tipo = selectTipo.value;
+    filtrar();
+  });
+
   if (selectPrecio) selectPrecio.addEventListener('change', () => {
     estado.precio = selectPrecio.value;
     filtrar();
@@ -243,12 +250,14 @@ function initMenuPage() {
 
   document.getElementById('limpiar-filtros')?.addEventListener('click', () => {
     estado.categoria = 'todas';
+    estado.tipo = 'todos';
     estado.precio = 'todos';
     estado.excluir.clear();
     estado.texto = '';
     document.querySelectorAll('.filter-tab[data-categoria]').forEach(t =>
       t.setAttribute('aria-pressed', String(t.dataset.categoria === 'todas')));
     document.querySelectorAll('.chip[data-excluir]').forEach(c => c.setAttribute('aria-pressed', 'false'));
+    if (selectTipo) selectTipo.value = 'todos';
     if (selectPrecio) selectPrecio.value = 'todos';
     if (input) input.value = '';
     filtrar();
