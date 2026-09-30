@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubicación y Horarios · Umami · San Salvador</title>
+  <meta name="description" content="Encuentra Umami: 20 Avenida Norte y Diagonal Cipactli, San Salvador. Mapa, teléfonos, redes sociales, horario semanal y cómo reservar tu mesa.">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            terracota: { DEFAULT: '#E05A47', dark: '#C74736', deep: '#A93A2B', soft: '#FBEAE7' },
+            oliva: { DEFAULT: '#4A5D4E', dark: '#38473B', ink: '#2F3B31', soft: '#EDF1EC' },
+            dorado: { DEFAULT: '#D4AF37', light: '#E6CE7E' },
+            crema: { DEFAULT: '#FDFBF7', sand: '#F4F4F2' },
+            carbon: { DEFAULT: '#2B2B2B', soft: '#555555', mute: '#6E6A63' }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-crema text-carbon font-sans antialiased">
+
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- ═══════════ HEADER / NAVBAR (en Flask: partial compartido en base.html) ═══════════ -->
+  <header id="site-header">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 h-16 lg:h-20" aria-label="Navegación principal">
+      <a href="index.html" class="brand" aria-label="Umami — Inicio">
+        <img src="assets/img/Logo2.png" alt="Umami" class="brand-logo">
+      </a>
+      <ul class="hidden lg:flex items-center gap-8">
+        <li><a class="nav-link" href="index.html">Inicio</a></li>
+        <li><a class="nav-link" href="menu.html">Menú</a></li>
+        <li><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+        <li><a class="nav-link" href="ubicacion.html" aria-current="page">Ubicación y Horarios</a></li>
+        <li><a class="nav-link" href="resenas.html">Reseñas</a></li>
+      </ul>
+      <a href="ubicacion.html#reservas" class="btn btn-primary btn-sm hidden lg:inline-flex">Reservar mesa</a>
+      <button id="menu-toggle" class="menu-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
+        <i data-lucide="menu" aria-hidden="true"></i>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ═══════════ MENÚ MÓVIL (overlay) ═══════════ -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación" inert>
+    <div class="mobile-menu-backdrop"></div>
+    <div class="mobile-menu-panel">
+      <div class="flex items-center justify-between mb-6">
+        <span class="brand !text-carbon" aria-hidden="true">
+          <img src="assets/img/logo.png" alt="Umami" class="brand-logo">
+        </span>
+        <button id="cerrar-menu" class="menu-toggle !text-carbon !bg-sand !border-[#E7E2D8]" aria-label="Cerrar menú de navegación">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+      <nav aria-label="Navegación móvil" class="flex-1">
+        <ul>
+          <li><a class="m-link" href="index.html">Inicio <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="menu.html">Menú <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="nosotros.html">Nosotros <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="ubicacion.html" aria-current="page">Ubicación y Horarios <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="resenas.html">Reseñas <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+        </ul>
+      </nav>
+      <a href="ubicacion.html#reservas" class="btn btn-primary w-full mt-8">Reservar mesa</a>
+      <p class="text-center text-xs text-carbon-mute mt-5 tracking-wide">20 Avenida Norte y Diagonal Cipactli · San Salvador</p>
+    </div>
+  </div>
+
+  <main id="contenido">
+
+    <!-- ═══════════ ENCABEZADO DE PÁGINA ═══════════ -->
+    <section class="page-hero pt-32 lg:pt-40 pb-14 lg:pb-20">
+      <span class="kanji-agua" aria-hidden="true">場</span>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav aria-label="Ruta de navegación" class="text-xs text-white/60 tracking-wide mb-4">
+          <a href="index.html" class="hover:text-dorado-light transition-colors duration-300">Inicio</a>
+          <span aria-hidden="true"> / </span><span class="text-white/85">Ubicación y Horarios</span>
+        </nav>
+        <p class="eyebrow on-dark mb-4">Encuéntranos</p>
+        <h1 class="font-display text-4xl sm:text-5xl font-semibold leading-tight mb-4">En el corazón de San Salvador,<br class="hidden sm:block"> sobre la 20 Avenida Norte</h1>
+        <p class="text-white/80 max-w-2xl leading-relaxed">Estamos en la 20 Avenida Norte, junto a la Diagonal Cipactli, en San Salvador. Aquí tienes el mapa, nuestros horarios y todo lo que necesitas para visitarnos.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ MAPA + DATOS DE CONTACTO ═══════════ -->
+    <section class="py-14 lg:py-20" aria-labelledby="titulo-mapa">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-10 lg:gap-14 lg:grid-cols-2 items-start">
+
+        <div class="reveal">
+          <h2 id="titulo-mapa" class="font-display text-2xl lg:text-3xl font-semibold mb-6">¿Dónde estamos?</h2>
+          <div class="vitrina border border-[#E7E2D8] shadow-[0_8px_26px_-16px_rgba(43,43,43,.18)]">
+            <iframe
+              src="https://www.google.com/maps?q=20+Avenida+Norte,+Diagonal+Cipactli,+San+Salvador,+El+Salvador&output=embed"
+              title="Mapa de ubicación del restaurante Umami, 20 Avenida Norte y Diagonal Cipactli, San Salvador, El Salvador"
+              class="w-full h-[320px] sm:h-[420px] lg:h-[480px]"
+              style="border:0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=20+Avenida+Norte,+Diagonal+Cipactli,+San+Salvador,+El+Salvador" target="_blank" rel="noopener" class="btn btn-outline-dark mt-6">
+            <i data-lucide="navigation" aria-hidden="true"></i>Abrir en Google Maps
+          </a>
+        </div>
+
+        <div class="reveal" data-delay="1">
+          <h2 class="font-display text-2xl lg:text-3xl font-semibold mb-6">Datos de contacto</h2>
+          <ul class="space-y-6">
+            <li class="flex gap-5 items-start">
+              <span class="icono-circulo"><i data-lucide="map-pin" aria-hidden="true"></i></span>
+              <div>
+                <h3 class="font-semibold mb-1">Dirección</h3>
+                <p class="text-carbon-soft leading-relaxed">20 Avenida Norte y Diagonal Cipactli<br>San Salvador, El Salvador</p>
+              </div>
+            </li>
+            <li class="flex gap-5 items-start">
+              <span class="icono-circulo verde"><i data-lucide="phone" aria-hidden="true"></i></span>
+              <div>
+                <h3 class="font-semibold mb-1">Teléfonos</h3>
+                <p class="text-carbon-soft leading-relaxed">
+                  <a href="tel:+50372008919" class="hover:text-terracota-dark transition-colors duration-300 font-semibold">+503 7200 8919</a><br>
+                  <a href="https://wa.me/50372008919" target="_blank" rel="noopener" class="hover:text-terracota-dark transition-colors duration-300">WhatsApp +503 7200 8919</a>
+                </p>
+              </div>
+            </li>
+            <li class="flex gap-5 items-start">
+              <span class="icono-circulo dorado"><i data-lucide="mail" aria-hidden="true"></i></span>
+              <div>
+                <h3 class="font-semibold mb-1">Correo</h3>
+                <p class="text-carbon-soft leading-relaxed"><a href="mailto:reservas@umami.sv" class="hover:text-terracota-dark transition-colors duration-300">reservas@umami.sv</a></p>
+              </div>
+            </li>
+            <li class="flex gap-5 items-start">
+              <span class="icono-circulo"><i data-lucide="at-sign" aria-hidden="true"></i></span>
+              <div>
+                <h3 class="font-semibold mb-1">Redes sociales</h3>
+                <div class="flex gap-3 mt-1">
+                  <a href="https://www.instagram.com/" class="socio-link !bg-oliva-soft !text-oliva-ink !border-transparent hover:!bg-terracota-dark hover:!text-white" aria-label="Instagram de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+                  <a href="https://www.facebook.com/" class="socio-link !bg-oliva-soft !text-oliva-ink !border-transparent hover:!bg-terracota-dark hover:!text-white" aria-label="Facebook de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                  <a href="https://x.com/" class="socio-link !bg-oliva-soft !text-oliva-ink !border-transparent hover:!bg-terracota-dark hover:!text-white" aria-label="X (Twitter) de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <div class="mt-8 rounded-2xl bg-oliva-soft border border-[#DFE7DE] p-6">
+            <h3 class="font-display text-lg font-semibold mb-3 flex items-center gap-2"><i data-lucide="bus" class="!w-5 !h-5 text-oliva" aria-hidden="true"></i>Cómo llegar</h3>
+            <ul class="space-y-2.5 text-sm text-carbon-soft leading-relaxed">
+              <li class="flex gap-2.5"><i data-lucide="check" class="!w-4 !h-4 text-oliva mt-0.5 flex-none" aria-hidden="true"></i>En bus: parada <strong>20 Avenida Norte</strong>, 10 minutos a pie por la 20 Avenida Norte.</li>
+              <li class="flex gap-2.5"><i data-lucide="check" class="!w-4 !h-4 text-oliva mt-0.5 flex-none" aria-hidden="true"></i>Taxi o apps: referencia «la 20 Avenida Norte, frente al parque».</li>
+              <li class="flex gap-2.5"><i data-lucide="check" class="!w-4 !h-4 text-oliva mt-0.5 flex-none" aria-hidden="true"></i>Estacionamiento con valet parking desde las 6:00 p.m.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ HORARIOS ═══════════ -->
+    <section class="bg-crema-sand py-14 lg:py-20" aria-labelledby="titulo-horarios">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 reveal">
+          <p class="eyebrow justify-center mb-4">Horario de atención</p>
+          <h2 id="titulo-horarios" class="font-display text-3xl lg:text-4xl font-semibold mb-6">Semana a semana, siempre fresco</h2>
+          <div id="estado-actual" class="estado-badge" role="status" aria-live="polite">
+            <span class="punto" aria-hidden="true"></span>Consultando el estado del local…
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-[#E7E2D8] shadow-[0_8px_26px_-16px_rgba(43,43,43,.18)] overflow-hidden reveal" data-delay="1">
+          <table id="tabla-horarios" class="horario-tabla">
+            <caption class="sr-only">Horario de atención de Umami por día de la semana</caption>
+            <thead>
+              <tr class="text-left text-xs uppercase tracking-wider text-carbon-mute">
+                <th scope="col" class="pt-5 px-5 sm:px-7 pb-3">Día</th>
+                <th scope="col" class="pt-5 px-5 sm:px-7 pb-3">Horario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-dia="1">
+                <th scope="row" class="font-semibold">Lunes</th>
+                <td class="text-carbon-mute">Cerrado</td>
+              </tr>
+              <tr data-dia="2">
+                <th scope="row" class="font-semibold">Martes</th>
+                <td>1:00 p.m. – 11:00 p.m.</td>
+              </tr>
+              <tr data-dia="3">
+                <th scope="row" class="font-semibold">Miércoles</th>
+                <td>1:00 p.m. – 11:00 p.m.</td>
+              </tr>
+              <tr data-dia="4">
+                <th scope="row" class="font-semibold">Jueves</th>
+                <td>1:00 p.m. – 11:00 p.m.</td>
+              </tr>
+              <tr data-dia="5">
+                <th scope="row" class="font-semibold">Viernes</th>
+                <td>1:00 p.m. – 12:00 a.m.</td>
+              </tr>
+              <tr data-dia="6">
+                <th scope="row" class="font-semibold">Sábado</th>
+                <td>12:30 p.m. – 12:00 a.m.</td>
+              </tr>
+              <tr data-dia="0">
+                <th scope="row" class="font-semibold">Domingo</th>
+                <td>12:30 p.m. – 5:00 p.m.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mt-6 text-center text-sm text-carbon-mute reveal" data-delay="2">
+          La cocina toma el último pedido 45 minutos antes del cierre. Los feriados se anuncian en nuestras redes sociales.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════ RESERVAS ═══════════ -->
+    <section id="reservas" class="py-14 lg:py-20" aria-labelledby="titulo-reservas">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-10 lg:gap-14 lg:grid-cols-2 items-center">
+          <div class="reveal">
+            <p class="eyebrow mb-4">Reserva tu mesa</p>
+            <h2 id="titulo-reservas" class="font-display text-3xl lg:text-4xl font-semibold leading-tight mb-5">Tu mesa te espera; solo falta confirmar la hora</h2>
+            <p class="text-carbon-soft leading-relaxed mb-8">Las reservas se toman por teléfono, WhatsApp o correo. Como somos un sitio informativo, aquí no procesamos pagos ni reservas en línea: prefieres escribirnos y nosotros confirmamos en minutos.</p>
+
+            <div class="flex flex-wrap gap-4">
+              <a href="tel:+50372008919" class="btn btn-primary"><i data-lucide="phone" aria-hidden="true"></i>Llamar ahora</a>
+              <a href="mailto:reservas@umami.sv" class="btn btn-outline-dark"><i data-lucide="mail" aria-hidden="true"></i>Escribir un correo</a>
+            </div>
+          </div>
+
+          <ul class="space-y-5 reveal" data-delay="1">
+            <li class="bg-white rounded-2xl border border-[#E7E2D8] p-6 flex gap-5 items-start">
+              <span class="icono-circulo verde"><i data-lucide="clock" aria-hidden="true"></i></span>
+              <div>
+                <h3 class="font-semibold mb-1">Horario para reservar</h3>
+                <p class="text-sm text-carbon-soft leading-relaxed">Lunes a sábado, de 10:00 a.m. a 8:00 p.m. Sugerimos reservar con al menos 24 horas de anticipación.</p>
+              </div>
+            </li>
+            <li class="bg-white rounded-2xl border border-[#E7E2D8] p-6 flex gap-5 items-start">
+              <span class="icono-circulo dorado"><i data-lucide="users" aria-hidden="true"></i></span>
+              <div>
+                <h3 class="font-semibold mb-1">Grupos y celebraciones</h3>
+                <p class="text-sm text-carbon-soft leading-relaxed">Mesas de más de 8 personas y eventos privados se coordinan con 48 horas de anticipación. Pregunta por nuestro menú degustación para grupos.</p>
+              </div>
+            </li>
+            <li class="bg-white rounded-2xl border border-[#E7E2D8] p-6 flex gap-5 items-start">
+              <span class="icono-circulo"><i data-lucide="info" aria-hidden="true"></i></span>
+              <div>
+                <h3 class="font-semibold mb-1">Antes de venir</h3>
+                <p class="text-sm text-carbon-soft leading-relaxed">Revisa la carta en <a href="menu.html" class="font-semibold text-terracota-dark hover:underline">nuestro menú digital</a> para decidirte con calma. Avisanos sobre alergias al reservar: la cocina se adapta.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ FOOTER (en Flask: partial compartido en base.html) ═══════════ -->
+  <footer class="bg-carbon text-[#E8E4D9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <span class="brand !text-white mb-5"><img src="assets/img/logo.png" alt="Umami" class="brand-logo brand-logo--footer"></span>
+        <p class="text-sm text-[#B9B4A8] leading-relaxed mb-6">Gastronomía moderna de fusión salvadoreño-japonesa. El quinto sabor, elevado a arte.</p>
+        <div class="flex gap-3">
+          <a href="https://www.instagram.com/" class="socio-link" aria-label="Instagram de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+          <a href="https://www.facebook.com/" class="socio-link" aria-label="Facebook de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://x.com/" class="socio-link" aria-label="X (Twitter) de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="Enlaces del sitio">
+        <h2 class="font-display text-lg font-semibold text-white mb-5">Explora</h2>
+        <ul class="space-y-3 text-sm">
+          <li><a href="menu.html" class="hover:text-dorado-light transition-colors duration-300">Menú digital</a></li>
+          <li><a href="nosotros.html" class="hover:text-dorado-light transition-colors duration-300">Nuestra historia</a></li>
+          <li><a href="ubicacion.html" class="hover:text-dorado-light transition-colors duration-300">Ubicación y horarios</a></li>
+          <li><a href="resenas.html" class="hover:text-dorado-light transition-colors duration-300">Reseñas</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="font-display text-lg font-semibold text-white mb-5">Contacto</h2>
+        <ul class="space-y-3 text-sm text-[#B9B4A8]">
+          <li class="dato-linea"><i data-lucide="map-pin" class="!text-terracota" aria-hidden="true"></i> 20 Avenida Norte y Diagonal Cipactli, San Salvador</li>
+          <li class="dato-linea"><i data-lucide="phone" class="!text-terracota" aria-hidden="true"></i> <a href="tel:+50372008919" class="hover:text-dorado-light transition-colors duration-300">+503 7200 8919</a></li>
+          <li class="dato-linea"><i data-lucide="mail" class="!text-terracota" aria-hidden="true"></i> <a href="mailto:reservas@umami.sv" class="hover:text-dorado-light transition-colors duration-300">reservas@umami.sv</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-display text-lg font-semibold text-white mb-5">Horario</h2>
+        <ul class="space-y-2.5 text-sm text-[#B9B4A8]">
+          <li class="flex justify-between gap-4"><span>Martes a jueves</span><span>13:00 – 23:00</span></li>
+          <li class="flex justify-between gap-4"><span>Viernes y sábado</span><span>13:00 – 00:00</span></li>
+          <li class="flex justify-between gap-4"><span>Domingo</span><span>12:30 – 17:00</span></li>
+          <li class="flex justify-between gap-4"><span>Lunes</span><span>Cerrado</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#8F8A7E]">
+        <p>© <span data-year>2026</span> Umami. Todos los derechos reservados.</p>
+        <p>Sitio informativo: no procesa pedidos ni pagos en línea.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

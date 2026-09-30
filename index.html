@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umami · Gastronomía de fusión salvadoreño-japonesa en San Salvador</title>
+  <meta name="description" content="Umami: cocina de autor de fusión salvadoreño-japonesa en San Salvador. Descubre nuestra carta, historia, horarios y las reseñas de nuestros comensales.">
+  <script>document.documentElement.classList.add('js');</script>
+  <script>(function(){try{if(sessionStorage.getItem('umami_intro_visto')){document.documentElement.classList.add('intro-omitir');}}catch(e){}})();</script>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            terracota: { DEFAULT: '#E05A47', dark: '#C74736', deep: '#A93A2B', soft: '#FBEAE7' },
+            oliva: { DEFAULT: '#4A5D4E', dark: '#38473B', ink: '#2F3B31', soft: '#EDF1EC' },
+            dorado: { DEFAULT: '#D4AF37', light: '#E6CE7E' },
+            crema: { DEFAULT: '#FDFBF7', sand: '#F4F4F2' },
+            carbon: { DEFAULT: '#2B2B2B', soft: '#555555', mute: '#6E6A63' }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-crema text-carbon font-sans antialiased intro-activo">
+
+  <!-- ═══════════ INTRO LOADER (video de carga) ═══════════ -->
+  <div id="intro-loader" class="intro-loader" role="presentation">
+    <video id="intro-video" class="intro-video" autoplay muted playsinline preload="auto">
+      <source src="assets/video/intro.mp4" type="video/mp4">
+    </video>
+    <button type="button" id="intro-skip" class="intro-skip">Saltar intro</button>
+  </div>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- ═══════════ HEADER / NAVBAR (en Flask: partial compartido en base.html) ═══════════ -->
+  <header id="site-header">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 h-16 lg:h-20" aria-label="Navegación principal">
+      <a href="index.html" class="brand" aria-label="Umami — Inicio">
+        <img src="assets/img/Logo2.png" alt="Umami" class="brand-logo">
+      </a>
+      <ul class="hidden lg:flex items-center gap-8">
+        <li><a class="nav-link" href="index.html" aria-current="page">Inicio</a></li>
+        <li><a class="nav-link" href="menu.html">Menú</a></li>
+        <li><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+        <li><a class="nav-link" href="ubicacion.html">Ubicación y Horarios</a></li>
+        <li><a class="nav-link" href="resenas.html">Reseñas</a></li>
+      </ul>
+      <a href="ubicacion.html#reservas" class="btn btn-primary btn-sm hidden lg:inline-flex">Reservar mesa</a>
+      <button id="menu-toggle" class="menu-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
+        <i data-lucide="menu" aria-hidden="true"></i>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ═══════════ MENÚ MÓVIL (overlay) ═══════════ -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación" inert>
+    <div class="mobile-menu-backdrop"></div>
+    <div class="mobile-menu-panel">
+      <div class="flex items-center justify-between mb-6">
+        <span class="brand !text-carbon" aria-hidden="true">
+          <img src="assets/img/logo.png" alt="Umami" class="brand-logo">
+        </span>
+        <button id="cerrar-menu" class="menu-toggle !text-carbon !bg-sand !border-[#E7E2D8]" aria-label="Cerrar menú de navegación">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+      <nav aria-label="Navegación móvil" class="flex-1">
+        <ul>
+          <li><a class="m-link" href="index.html" aria-current="page">Inicio <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="menu.html">Menú <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="nosotros.html">Nosotros <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="ubicacion.html">Ubicación y Horarios <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          <li><a class="m-link" href="resenas.html">Reseñas <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+        </ul>
+      </nav>
+      <a href="ubicacion.html#reservas" class="btn btn-primary w-full mt-8">Reservar mesa</a>
+      <p class="text-center text-xs text-carbon-mute mt-5 tracking-wide">20 Avenida Norte y Diagonal Cipactli · San Salvador</p>
+    </div>
+  </div>
+
+  <main id="contenido">
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="relative min-h-[92vh] flex items-center overflow-hidden" aria-labelledby="titulo-hero">
+      <img src="assets/img/hero.jpg" alt="Lomo Saltado Umami, plato insignia de la casa: medallones de lomo wagyu con papas suflé sobre una salsa oscura de soya." class="hero-img absolute inset-0 w-full h-full object-cover" width="1376" height="768">
+      <div class="absolute inset-0 bg-gradient-to-r from-carbon/85 via-carbon/60 to-carbon/25" aria-hidden="true"></div>
+      <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-carbon/50 to-transparent" aria-hidden="true"></div>
+      <span class="hidden xl:block absolute right-10 top-1/2 -translate-y-1/2 font-display text-[9rem] leading-none text-white/10 select-none pointer-events-none" style="writing-mode: vertical-rl" aria-hidden="true">旨味</span>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-0 w-full">
+        <div class="max-w-2xl text-white">
+          <p class="reveal eyebrow on-dark mb-5">Gastronomía de fusión nipona-salvadoreña en San Salvador</p>
+          <h1 id="titulo-hero" class="reveal font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.08] mb-6" data-delay="1">
+            ℰ𝓁 𝓆𝓊𝒾𝓃𝓉𝑜 𝓈𝒶𝒷𝑜𝓇,<br>𝑒𝓁𝑒𝓋𝒶𝒹𝑜 𝒶 <em class="italic text-dorado-light">𝒶𝓇𝓉𝑒</em>
+          </h1>
+          <p class="reveal text-lg sm:text-xl text-white/85 leading-relaxed max-w-xl mb-9" data-delay="2">
+           𝑈𝑚𝑎𝑚𝑖: 𝑐𝑜𝑐𝑖𝑛𝑎 𝑑𝑒 𝑎𝑢𝑡𝑜𝑟 𝑑𝑒 𝑓𝑢𝑠𝑖ó𝑛 𝑛𝑖𝑘𝑘𝑒𝑖 𝑦 𝑠𝑎𝑙𝑣𝑎𝑑𝑜𝑟𝑒ñ𝑎 𝑒𝑛 𝑆𝑎𝑛 𝑆𝑎𝑙𝑣𝑎𝑑𝑜𝑟. 𝐷𝑒𝑠𝑐𝑢𝑏𝑟𝑒 𝑛𝑢𝑒𝑠𝑡𝑟𝑎 𝑐𝑎𝑟𝑡𝑎, ℎ𝑖𝑠𝑡𝑜𝑟𝑖𝑎, ℎ𝑜𝑟𝑎𝑟𝑖𝑜𝑠 𝑦 𝑟𝑒𝑠𝑒𝑟𝑣𝑎𝑠.
+          </p>
+          <div class="reveal flex flex-wrap items-center gap-4" data-delay="3">
+            <a href="menu.html" class="btn btn-primary">Ver menú <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+            <a href="ubicacion.html" class="btn btn-outline-light"><i data-lucide="map-pin" aria-hidden="true"></i> Ubicación y Horarios</a>
+          </div>
+          <a href="#experiencia" class="reveal inline-flex items-center gap-3 mt-12 group" data-delay="3">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/40 text-white transition-all duration-300 group-hover:bg-white group-hover:text-terracota-deep">
+              <i data-lucide="chevron-down" class="!w-5 !h-5" aria-hidden="true"></i>
+            </span>
+            <span class="text-sm text-white/75 tracking-wide group-hover:text-white transition-colors duration-300">Descubre la experiencia</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="absolute bottom-8 right-8 hidden md:flex items-center gap-3 bg-white/10 border border-white/25 backdrop-blur-md rounded-2xl px-5 py-3.5 text-white">
+        <span id="preview-stars" class="stars !text-xl"></span>
+        <span class="text-sm leading-tight"><strong id="preview-promedio" class="font-display text-lg">4.7</strong> · 234 reseñas<br><span class="text-white/70 text-xs">promedio global</span></span>
+      </div>
+    </section>
+
+    <!-- ═══════════ EXPERIENCIA (3 pilares) ═══════════ -->
+    <section id="experiencia" class="py-20 lg:py-28 bg-crema" aria-labelledby="titulo-experiencia">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto text-center mb-14">
+          <p class="reveal eyebrow mb-4">La experiencia Umami</p>
+          <h2 id="titulo-experiencia" class="reveal font-display text-3xl sm:text-4xl font-semibold leading-tight" data-delay="1">Tres obsesiones detrás de cada plato</h2>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <article class="reveal group">
+            <div class="icono-circulo mb-5 group-hover:scale-110"><img src="assets/img/icons/icono-brote.png" alt="" class="icono-img" width="28" height="28"></div>
+            <h3 class="font-display text-xl font-semibold mb-2.5">Producto fresco local</h3>
+            <p class="text-carbon-mute leading-relaxed text-[15px]">Colaboramos con productores locales: pesca fresca de la Costa del Sol, vegetales orgánicos del volcán de San Salvador y notas de café de alta cumbre.</p>
+          </article>
+          <article class="reveal group" data-delay="1">
+            <div class="icono-circulo verde mb-5 group-hover:scale-110"><img src="assets/img/icons/icono-chef.png" alt="" class="icono-img" width="28" height="28"></div>
+            <h3 class="font-display text-xl font-semibold mb-2.5">Técnica nipona de precisión</h3>
+            <p class="text-carbon-mute leading-relaxed text-[15px]">Cortes milimétricos, cocciones exactas y el respeto por el sabor natural del insumo. Disciplina japonesa adaptada a nuestro paladar..</p>
+          </article>
+          <article class="reveal group" data-delay="2">
+            <div class="icono-circulo dorado mb-5 group-hover:scale-110"><img src="assets/img/icons/icono-copa.png" alt="" class="icono-img" width="28" height="28"></div>
+            <h3 class="font-display text-xl font-semibold mb-2.5">Maridaje y coctelería de autor</h3>
+            <p class="text-carbon-mute leading-relaxed text-[15px]">Coctelería conceptual con destilados japoneses, fermentados de la casa e infusiones botánicas diseñadas para realzar cada bocado.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ PLATO INSIGNIA ═══════════ -->
+    <section class="py-20 lg:py-28 bg-crema-sand" aria-labelledby="titulo-insignia">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="reveal vitrina aspect-[4/3] shadow-2xl">
+          <img src="assets/img/platos/lomo-umami.jpg" alt="Lomo Saltado Umami servido en plato de cerámica oscura con glaseado brillante de soya negra." loading="lazy" width="900" height="672">
+          <span class="badge badge-chef absolute left-4 top-4 !text-[13px] !py-1.5 !px-3"><i data-lucide="star" aria-hidden="true"></i> Plato insignia</span>
+        </div>
+        <div>
+          <p class="reveal eyebrow mb-4">𝐹𝑖𝑟𝑚𝑎 𝑑𝑒 𝑙𝑎 𝑐𝑎𝑠𝑎</p>
+          <h2 id="titulo-insignia" class="reveal font-display text-3xl sm:text-4xl font-semibold leading-tight mb-5" data-delay="1">Lomo Saltado Umami</h2>
+          <p class="reveal text-carbon-mute leading-relaxed mb-4" data-delay="1">
+            Nuestra reinterpretación del clásico absoluto: medallones de lomo wagyu sellados a la plancha de hierro, papas suflé doradas y una reducción de soya negra al ají amarillo que se cocina 18 horas.
+          </p>
+          <p class="reveal text-carbon-mute leading-relaxed mb-8" data-delay="1">
+            El plato que le dio nombre a la casa: ese golpe de sabor profundo que solo el quinto sabor puede dar.
+          </p>
+          <div class="reveal flex flex-wrap items-center gap-6" data-delay="2">
+            <p class="font-display text-3xl font-bold text-terracota-deep">$28.00</p>
+            <div class="flex items-center gap-2 text-sm text-carbon-mute">
+              <i data-lucide="timer" class="!w-4 !h-4 text-terracota-dark" aria-hidden="true"></i> Elaboración 25 min
+            </div>
+            <a href="menu.html" class="btn btn-outline-dark">Ver la carta completa <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ DESTACADOS DEL MENÚ ═══════════ -->
+    <section class="py-20 lg:py-28 bg-crema" aria-labelledby="titulo-destacados">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
+          <div class="max-w-xl">
+            <p class="reveal eyebrow mb-4">La carta</p>
+            <h2 id="titulo-destacados" class="reveal font-display text-3xl sm:text-4xl font-semibold leading-tight" data-delay="1">Las firmas del chef</h2>
+          </div>
+          <a href="menu.html" class="reveal btn btn-outline-dark" data-delay="1">Explorar el menú completo <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div id="destacados-grid" class="grid gap-8 sm:grid-cols-2 xl:grid-cols-4"></div>
+        <p class="reveal text-center text-sm text-carbon-mute mt-10">
+          <i data-lucide="info" class="!w-4 !h-4 inline-block align-[-2px] text-oliva" aria-hidden="true"></i>
+          Carta informativa: los precios y la disponibilidad pueden variar según temporada.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════ TESTIMONIOS ═══════════ -->
+    <section class="py-20 lg:py-28 bg-oliva-ink text-white relative overflow-hidden" aria-labelledby="titulo-testimonios">
+      <span class="absolute -left-10 top-6 font-display text-[16rem] leading-none text-white/[.05] select-none pointer-events-none" aria-hidden="true">”</span>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
+          <div class="max-w-xl">
+            <p class="reveal eyebrow on-dark mb-4">Nuestros comensales</p>
+            <h2 id="titulo-testimonios" class="reveal font-display text-3xl sm:text-4xl font-semibold leading-tight" data-delay="1">Lo que se dice de Umami</h2>
+          </div>
+          <div class="reveal flex items-center gap-4 bg-white/10 border border-white/20 rounded-2xl px-6 py-4" data-delay="1">
+            <span class="font-display text-4xl font-bold text-dorado-light" id="preview-promedio-2">4.7</span>
+            <div>
+              <span id="preview-stars-2" class="stars !text-lg"></span>
+              <p class="text-xs text-white/70 mt-1">234 reseñas verificadas</p>
+            </div>
+          </div>
+        </div>
+        <div id="preview-resenas" class="grid gap-6 md:grid-cols-3"></div>
+        <div class="reveal mt-12 text-center">
+          <a href="resenas.html" class="btn btn-light">Leer todas las reseñas <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ CTA RESERVA ═══════════ -->
+    <section class="relative py-20 lg:py-24 text-carbon overflow-hidden bg-crema" aria-labelledby="titulo-cta" style="background-image:url('assets/img/fondo-hojas.png');background-size:cover;background-position:center;">
+      <div class="absolute inset-0 pointer-events-none" style="background:rgba(253,251,247,.55)" aria-hidden="true"></div>
+      <span class="absolute right-6 -bottom-8 font-display text-[12rem] leading-none text-carbon/10 select-none pointer-events-none" aria-hidden="true">旨</span>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 id="titulo-cta" class="reveal font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mb-5">¿Listo para vivir el quinto sabor?</h2>
+        <p class="reveal text-carbon-soft text-lg max-w-xl mx-auto mb-9" data-delay="1">Las mesas vuelan los fines de semana. Encuéntranos en San Salvador o escríbenos para reservar tu experiencia.</p>
+        <div class="reveal flex flex-wrap justify-center gap-4" data-delay="2">
+          <a href="ubicacion.html#reservas" class="btn btn-primary">Ubicación y reservas <i data-lucide="map-pin" aria-hidden="true"></i></a>
+          <a href="tel:+50372008919" class="btn btn-outline-dark"><i data-lucide="phone" aria-hidden="true"></i> +503 7200 8919</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ FOOTER (en Flask: partial compartido en base.html) ═══════════ -->
+  <footer class="bg-carbon text-[#E8E4D9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <span class="brand !text-white mb-5"><img src="assets/img/logo.png" alt="Umami" class="brand-logo brand-logo--footer"></span>
+        <p class="text-sm text-[#B9B4A8] leading-relaxed mb-6">Gastronomía moderna de fusión salvadoreño-japonesa. El quinto sabor, elevado a arte.</p>
+        <div class="flex gap-3">
+          <a href="https://www.instagram.com/" class="socio-link" aria-label="Instagram de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+          <a href="https://www.facebook.com/" class="socio-link" aria-label="Facebook de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://x.com/" class="socio-link" aria-label="X (Twitter) de Umami" rel="noopener" target="_blank"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="Enlaces del sitio">
+        <h2 class="font-display text-lg font-semibold text-white mb-5">Explora</h2>
+        <ul class="space-y-3 text-sm">
+          <li><a href="menu.html" class="hover:text-dorado-light transition-colors duration-300">Menú digital</a></li>
+          <li><a href="nosotros.html" class="hover:text-dorado-light transition-colors duration-300">Nuestra historia</a></li>
+          <li><a href="ubicacion.html" class="hover:text-dorado-light transition-colors duration-300">Ubicación y horarios</a></li>
+          <li><a href="resenas.html" class="hover:text-dorado-light transition-colors duration-300">Reseñas</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="font-display text-lg font-semibold text-white mb-5">Contacto</h2>
+        <ul class="space-y-3 text-sm text-[#B9B4A8]">
+          <li class="dato-linea"><i data-lucide="map-pin" class="!text-terracota" aria-hidden="true"></i> 20 Avenida Norte y Diagonal Cipactli, San Salvador</li>
+          <li class="dato-linea"><i data-lucide="phone" class="!text-terracota" aria-hidden="true"></i> <a href="tel:+50372008919" class="hover:text-dorado-light transition-colors duration-300">+503 7200 8919</a></li>
+          <li class="dato-linea"><i data-lucide="mail" class="!text-terracota" aria-hidden="true"></i> <a href="mailto:reservas@umami.sv" class="hover:text-dorado-light transition-colors duration-300">reservas@umami.sv</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-display text-lg font-semibold text-white mb-5">Horario</h2>
+        <ul class="space-y-2.5 text-sm text-[#B9B4A8]">
+          <li class="flex justify-between gap-4"><span>Martes a jueves</span><span>13:00 – 23:00</span></li>
+          <li class="flex justify-between gap-4"><span>Viernes y sábado</span><span>13:00 – 00:00</span></li>
+          <li class="flex justify-between gap-4"><span>Domingo</span><span>12:30 – 17:00</span></li>
+          <li class="flex justify-between gap-4"><span>Lunes</span><span>Cerrado</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#8F8A7E]">
+        <p>© <span data-year>2026</span> Umami. Todos los derechos reservados.</p>
+        <p>Sitio informativo: no procesa pedidos ni pagos en línea.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
