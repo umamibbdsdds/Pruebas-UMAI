@@ -454,3 +454,62 @@ article:hover .icono-circulo {
 @media (prefers-reduced-motion: reduce) {
   .card::before { transition: none; }
 }
+
+/* ============================================================
+   AJUSTES SOLICITADOS — tarjetas de pilares con imagen,
+   etiquetas de plato interactivas y nota de ambiente
+   ============================================================ */
+
+/* Tarjetas de pilares (iconos sustituidos por fotografías) */
+.pilar-card {
+  background: #fff; border-radius: 1.2rem; overflow: hidden;
+  border: 1px solid rgba(231, 226, 216, .7);
+  box-shadow: 0 8px 26px -16px rgba(43, 43, 43, .18);
+  transition: transform .35s ease, box-shadow .35s ease;
+  display: flex; flex-direction: column; position: relative;
+}
+.pilar-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--dorado), var(--dorado-light));
+  transform: scaleX(0); transform-origin: left; z-index: 3;
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.pilar-card:hover { transform: translateY(-6px); box-shadow: 0 26px 48px -20px rgba(43, 43, 43, .32); }
+.pilar-card:hover::before { transform: scaleX(1); }
+.pilar-img { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--sand); }
+.pilar-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.pilar-card:hover .pilar-img img { transform: scale(1.06); }
+.pilar-img::after {
+  content: ''; position: absolute; inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, .25);
+  pointer-events: none;
+}
+.pilar-body { padding: 1.35rem 1.5rem 1.6rem; flex: 1; display: flex; flex-direction: column; }
+
+/* Nota de ambiente que ocupa el espacio libre de la galería */
+.ambiente-nota {
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--oliva-soft);
+  border: 1px solid var(--linea);
+  border-radius: 1.2rem;
+  padding: 2rem 2.25rem;
+}
+
+/* Etiquetas de plato clicables (filtran la carta) */
+.alergeno-btn { cursor: pointer; }
+.alergeno-btn:hover { border-color: var(--terracota-dark); color: var(--terracota-dark); background: var(--terracota-soft); }
+.alergeno-btn[aria-pressed="true"] { background: var(--terracota-deep); border-color: var(--terracota-deep); color: #fff; }
+.alergeno-btn[aria-pressed="true"] .lucide { color: var(--dorado-light); }
+
+.etiqueta-btn { cursor: pointer; transition: all .3s ease; }
+.etiqueta-btn:hover { filter: brightness(.96); box-shadow: 0 6px 14px -8px rgba(47, 59, 49, .5); }
+.etiqueta-btn[aria-pressed="true"] { background: var(--oliva); color: #fff; }
+.etiqueta-btn[aria-pressed="true"] .lucide { color: var(--dorado-light); }
+
+/* Chip del filtro de etiqueta activo */
+.chip-activo { background: var(--oliva); border-color: var(--oliva); color: #fff; }
+.chip-activo:hover { background: var(--oliva-dark); border-color: var(--oliva-dark); color: #fff; }
+.chip-activo .lucide { color: var(--dorado-light); }
+
+/* Pestañas de categoría: realce sutil del estado activo */
+.filter-tab[aria-pressed="true"] { box-shadow: 0 12px 22px -14px rgba(74, 93, 78, .7); }
