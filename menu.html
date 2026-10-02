@@ -40,7 +40,7 @@
   <header id="site-header">
     <nav class="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 h-16 lg:h-20" aria-label="Navegación principal">
       <a href="index.html" class="brand" aria-label="Umami — Inicio">
-        <img src="assets/img/logo.png" alt="Umami" class="brand-logo">
+        <img src="assets/img/Logo2.png" alt="Umami" class="brand-logo">
       </a>
       <ul class="hidden lg:flex items-center gap-8">
         <li><a class="nav-link" href="index.html">Inicio</a></li>
@@ -142,7 +142,7 @@
         </div>
 
         <!-- Pestañas de categoría -->
-        <div class="flex gap-2.5 overflow-x-auto pb-2 -mx-1 px-1 mb-5" role="group" aria-label="Filtrar por categoría">
+        <div class="filter-tabs-row flex flex-wrap justify-center gap-2.5 mb-6" role="group" aria-label="Filtrar por categoría">
           <button class="filter-tab" data-categoria="todas" aria-pressed="true"><i data-lucide="utensils" aria-hidden="true"></i>Todos</button>
           <button class="filter-tab" data-categoria="entradas" aria-pressed="false"><i data-lucide="salad" aria-hidden="true"></i>Entradas</button>
           <button class="filter-tab" data-categoria="fuertes" aria-pressed="false"><i data-lucide="beef" aria-hidden="true"></i>Platos fuertes</button>
@@ -151,13 +151,16 @@
         </div>
 
         <!-- Chips de alérgenos y preferencias -->
-        <div class="flex flex-wrap items-center gap-2.5 mb-10">
+        <div class="flex flex-wrap items-center justify-center gap-2.5 mb-5">
           <span class="text-xs font-semibold uppercase tracking-wider text-carbon-mute mr-1">Mostrar solo:</span>
           <button class="chip" data-excluir="gluten" aria-pressed="false"><i data-lucide="wheat-off" aria-hidden="true"></i>Sin gluten</button>
           <button class="chip" data-excluir="lacteos" aria-pressed="false"><i data-lucide="milk-off" aria-hidden="true"></i>Sin lactosa</button>
           <button class="chip" data-excluir="huevo" aria-pressed="false"><i data-lucide="egg-off" aria-hidden="true"></i>Sin huevo</button>
           <button class="chip" data-excluir="vegetariano" aria-pressed="false"><i data-lucide="leaf" aria-hidden="true"></i>Vegetariano</button>
         </div>
+
+        <!-- Filtro activo por etiqueta (clic en una etiqueta de plato) -->
+        <div id="tag-activo" class="tag-activo-wrap hidden flex flex-wrap items-center justify-center gap-2.5 mb-10" role="status" aria-live="polite"></div>
 
         <!-- Contador de resultados -->
         <p id="menu-count" class="text-sm font-medium text-oliva-ink mb-6" role="status" aria-live="polite">Cargando la carta…</p>
